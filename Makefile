@@ -6,13 +6,16 @@
 #    By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/19 12:18:28 by ryhara            #+#    #+#              #
-#    Updated: 2023/09/19 12:27:10 by ryhara           ###   ########.fr        #
+#    Updated: 2023/09/19 15:19:59 by ryhara           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 SRCDIR = ./srcs/
-SRC =   main.c \
+SRC = check_args.c \
+		init.c \
+		main.c \
+		utils.c \
 
 SRCS = $(addprefix $(SRCDIR), $(SRC))
 OBJDIR = ./obj/
