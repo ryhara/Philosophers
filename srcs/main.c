@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 12:24:16 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/19 15:19:36 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/19 15:22:07 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,16 @@ int	main(int argc, char **argv)
 {
 	t_data	*data;
 
-	if (argc == 5)
+	if (argc == 5 || argc == 6)
 	{
 		if (!check_data(argc, argv))
 			return (print_args_error(), 1);
 		data = data_init(argc, argv);
 		print_data(data);
-	}
-	else if (argc == 6)
-	{
-		if (!check_data(argc, argv))
-			return (print_args_error(), 1);
-		data = data_init(argc, argv);
-		print_data(data);
-
+		if (argc == 5)
+			printf("argc == 5\n");
+		else if (argc == 6)
+			printf("argc == 6\n");
 	}
 	else
 		return (print_args_error(), 1);
