@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:49:20 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/19 15:18:59 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/19 16:41:28 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ bool	is_number(char *str)
 	size_t	i;
 
 	i = 0;
+	if (str[i] == '\0')
+		return (false);
 	while (str[i])
 	{
 		if (('0' <= str[i] && str[i] <= '9'))

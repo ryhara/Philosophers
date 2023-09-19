@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 12:24:16 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/19 15:22:07 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/19 16:43:34 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,16 @@ void	print_data(t_data *data)
 	printf("nbr_of_eat: %d\n", data->nbr_of_eat);
 }
 
+void	main_argc5(t_data *data)
+{
+	printf("argc == 5\n");
+}
+
+void	main_argc6(t_data *data)
+{
+	printf("argc == 6\n");
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	*data;
@@ -32,9 +42,10 @@ int	main(int argc, char **argv)
 		data = data_init(argc, argv);
 		print_data(data);
 		if (argc == 5)
-			printf("argc == 5\n");
+			main_argc5(data);
 		else if (argc == 6)
-			printf("argc == 6\n");
+			main_argc6(data);
+		return (0);
 	}
 	else
 		return (print_args_error(), 1);
