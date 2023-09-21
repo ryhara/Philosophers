@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:19:19 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/21 14:34:39 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/21 20:44:56 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,15 @@ t_data	*data_init(int argc, char **argv)
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
+	data->is_dead = false;
 	if (argc == 6)
 		data->nbr_of_eat = ft_atoi(argv[5]);
 	else
 		data->nbr_of_eat = -1;
+	pthread_mutex_init(&data->status, NULL);
+	pthread_mutex_init(&data->time, NULL);
+	pthread_mutex_init(&data->print, NULL);
+	pthread_mutex_init(&data->eat, NULL);
 	return (data);
 }
 
@@ -37,10 +42,10 @@ pthread_mutex_t	*mutex_init(t_data *data)
 
 	i = 0;
 	forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
-			* data->nbr_of_philo);
+			* (data->nbr_of_philo + 1));
 	if (forks == NULL)
 		return (NULL);
-	while (i < data->nbr_of_philo)
+	while (i < data->nbr_of_philo + 1)
 	{
 		if (pthread_mutex_init(&forks[i], NULL) != 0)
 		{
@@ -67,9 +72,13 @@ t_philo	*philo_init(t_data *data)
 		philos[i].nbr_of_eat = 0;
 		philos[i].status = THINKING;
 		philos[i].data = data;
-		philos[i].left_fork = i;
-		philos[i].right_fork = (i + 1) % data->nbr_of_philo;
+		philos[i].left_fork = i + 1;
+		philos[i].right_fork = (i + 2);
+		if (i == data->nbr_of_philo - 1)
+			philos[i].right_fork = 1;
 		philos[i].last_eat = 0;
+		philos[i].nbr_of_eat = 0;
+		philos[i].is_full = false;
 		i++;
 	}
 	return (philos);
@@ -83,8 +92,8 @@ void	print_all_data(t_data *data, t_philo *philos)
 	while (i < data->nbr_of_philo)
 	{
 		printf("philos[%d].id: %d\n", i, philos[i].id);
-		printf("philos[%d].nbr_of_eat: %d\n", i, philos[i].nbr_of_eat);
-		printf("philos[%d].status: %d\n", i, philos[i].status);
+		printf("left_fork: %d\n", philos[i].left_fork);
+		printf("right_fork: %d\n", philos[i].right_fork);
 		i++;
 	}
 	printf("nbr_of_philo: %d\n", data->nbr_of_philo);
@@ -105,6 +114,6 @@ bool	all_init(t_data **data, t_philo **philos, int argc, char **argv)
 	*philos = philo_init(*data);
 	if (*philos == NULL)
 		return (print_failed_error(), false);
-	print_all_data(*data, *philos);
+	// print_all_data(*data, *philos);
 	return (true);
 }

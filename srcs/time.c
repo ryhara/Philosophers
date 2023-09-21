@@ -6,13 +6,13 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 10:45:49 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/21 14:00:48 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/21 20:05:52 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-size_t	get_micro_sec(void)
+long	get_micro_sec(void)
 {
 	struct timeval	time;
 
@@ -21,10 +21,10 @@ size_t	get_micro_sec(void)
 		ft_puterr("gettimeofday() error\n");
 		exit(ERROR);
 	}
-	return (time.tv_sec * 1000000 + time.tv_usec);
+	return (time.tv_sec * (long)1000000 + time.tv_usec);
 }
 
-size_t	get_milli_sec(void)
+long	get_milli_sec(void)
 {
 	struct timeval	time;
 
@@ -33,17 +33,25 @@ size_t	get_milli_sec(void)
 		ft_puterr("gettimeofday() error\n");
 		exit(ERROR);
 	}
-	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+	return (time.tv_sec * (long)1000 + time.tv_usec / (long)1000);
 }
 
-size_t	get_sec(void)
+long	mili_to_micro(long ms)
 {
-	struct timeval	time;
+	return (ms * (long)1000);
+}
 
-	if (gettimeofday(&time, NULL) == -1)
+void	usleep_philo(long us)
+{
+	long	start_time;
+	long	current_time;
+
+	start_time = get_micro_sec();
+	while (1)
 	{
-		ft_puterr("gettimeofday() error\n");
-		exit(ERROR);
+		current_time = get_micro_sec();
+		if (current_time - start_time >= us)
+			break ;
 	}
-	return (time.tv_sec + time.tv_usec / 1000000);
+	// printf("usleep time: %ld\n", current_time - start_time);
 }
