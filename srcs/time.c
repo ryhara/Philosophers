@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 10:45:49 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/21 20:05:52 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/21 22:58:39 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ long	get_micro_sec(void)
 	if (gettimeofday(&time, NULL) == -1)
 	{
 		ft_puterr("gettimeofday() error\n");
-		exit(ERROR);
+		exit(EXIT_FAILURE);
 	}
 	return (time.tv_sec * (long)1000000 + time.tv_usec);
 }
@@ -31,7 +31,7 @@ long	get_milli_sec(void)
 	if (gettimeofday(&time, NULL) == -1)
 	{
 		ft_puterr("gettimeofday() error\n");
-		exit(ERROR);
+		exit(EXIT_FAILURE);
 	}
 	return (time.tv_sec * (long)1000 + time.tv_usec / (long)1000);
 }
@@ -53,5 +53,4 @@ void	usleep_philo(long us)
 		if (current_time - start_time >= us)
 			break ;
 	}
-	// printf("usleep time: %ld\n", current_time - start_time);
 }

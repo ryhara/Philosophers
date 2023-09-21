@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:34:07 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/21 20:46:25 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/21 22:51:21 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,19 @@
 void	take_fork(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->forks[philo->left_fork]);
+	if (is_phio_dead(philo))
+	{
+		pthread_mutex_unlock(&philo->data->forks[philo->left_fork]);
+		return ;
+	}
 	print_state(philo, STR_FORK);
 	pthread_mutex_lock(&philo->data->forks[philo->right_fork]);
+	if (is_phio_dead(philo))
+	{
+		pthread_mutex_unlock(&philo->data->forks[philo->left_fork]);
+		pthread_mutex_unlock(&philo->data->forks[philo->right_fork]);
+		return ;
+	}
 	print_state(philo, STR_FORK);
 	pthread_mutex_lock(&philo->data->status);
 	philo->status = EATING;
@@ -25,9 +36,9 @@ void	take_fork(t_philo *philo)
 
 void	eating(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->data->time);
+	pthread_mutex_lock(&philo->data->eat);
 	philo->last_eat = get_milli_sec();
-	pthread_mutex_unlock(&philo->data->time);
+	pthread_mutex_unlock(&philo->data->eat);
 	pthread_mutex_lock(&philo->data->eat);
 	philo->nbr_of_eat++;
 	pthread_mutex_unlock(&philo->data->eat);
@@ -62,6 +73,8 @@ void	*routine(t_philo *philo)
 	{
 		thinking(philo);
 		take_fork(philo);
+		if (is_phio_dead(philo))
+			break ;
 		eating(philo);
 		if (is_phio_dead(philo))
 			break ;

@@ -6,39 +6,11 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 12:24:16 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/21 20:46:40 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/21 22:45:38 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	monitoring(t_data *data, t_philo *philos)
-{
-	while (1)
-	{
-		pthread_mutex_lock(&data->status);
-		if (data->nbr_of_eat < 0 && data->is_dead == true)
-		{
-			pthread_mutex_unlock(&data->status);
-			break ;
-		}
-		if (data->is_dead == true)
-		{
-			pthread_mutex_unlock(&data->status);
-			break ;
-		}
-		else
-		{
-			pthread_mutex_unlock(&data->status);
-			if (!check_philos_status(philos))
-			{
-				print_state(philos, STR_DIED);
-				break ;
-			}
-		}
-		usleep_philo(1000);
-	}
-}
 
 bool	main_exe(t_data *data, t_philo *philos)
 {

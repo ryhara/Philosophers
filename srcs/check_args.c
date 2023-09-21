@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 14:49:20 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/19 16:41:28 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/21 22:42:50 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ bool	check_data(int argc, char **argv)
 	while (i < argc)
 	{
 		num = ft_atoi(argv[i]);
-		if (num < 0)
+		if (num <= 0)
 			return (false);
 		i++;
 	}

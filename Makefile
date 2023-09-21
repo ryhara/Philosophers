@@ -6,7 +6,7 @@
 #    By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/19 12:18:28 by ryhara            #+#    #+#              #
-#    Updated: 2023/09/21 16:35:19 by ryhara           ###   ########.fr        #
+#    Updated: 2023/09/21 22:47:41 by ryhara           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,10 +15,10 @@ SRCDIR = ./srcs/
 SRC = check_args.c \
 		init.c \
 		main.c \
+		monitoring.c \
 		philo_action.c \
 		philo.c \
 		print.c \
-		utils.c \
 		time.c \
 
 SRCS = $(addprefix $(SRCDIR), $(SRC))
