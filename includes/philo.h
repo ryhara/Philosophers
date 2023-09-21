@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 12:22:39 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/21 13:26:26 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/21 14:34:06 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,22 @@ typedef struct s_data
 	int				time_to_sleep;
 	int				nbr_of_eat;
 	pthread_mutex_t	*forks;
-	struct timeval	*start_time;
+	size_t			start_time;
 
 }	t_data;
 
 typedef struct s_philo
 {
 	pthread_t		thread;
-	pthread_mutex_t	lock;
 	int				id;
 	int				nbr_of_eat;
+	int				left_fork;
+	int				right_fork;
 	t_status		status;
 	t_data			*data;
-	struct timeval	last_eat;
-	struct timeval	start_eat;
+	size_t			next_eat;
+	size_t			last_eat;
+	size_t			start_eat;
 }	t_philo;
 
 // check_args.c
@@ -72,15 +74,17 @@ t_data	*data_init(int argc, char **argv);
 t_philo	*philo_init(t_data *data);
 bool	all_init(t_data **data, t_philo **philos, int argc, char **argv);
 // main.c
-// time.c
-size_t	get_micro_sec(struct timeval *time);
-size_t	get_milli_sec(struct timeval *time);
-size_t	get_sec(struct timeval *time);
-void	get_current_time(struct timeval *time);
-// utils.c
+// philo.c
+void	*routine(t_philo *philo);
+void	destroy_all(t_data *data, t_philo *philos);
+// print,c
 size_t	ft_strlen(char *str);
 void	ft_puterr(char *str);
 void	print_args_error(void);
 void	print_failed_error(void);
+// time.c
+size_t	get_micro_sec(void);
+size_t	get_milli_sec(void);
+size_t	get_sec(void);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:19:19 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/21 13:39:41 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/21 14:34:39 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,9 @@ t_philo	*philo_init(t_data *data)
 		philos[i].nbr_of_eat = 0;
 		philos[i].status = THINKING;
 		philos[i].data = data;
-		if (pthread_mutex_init(&philos[i].lock, NULL) != 0)
-		{
-			free(philos);
-			return (NULL);
-		}
+		philos[i].left_fork = i;
+		philos[i].right_fork = (i + 1) % data->nbr_of_philo;
+		philos[i].last_eat = 0;
 		i++;
 	}
 	return (philos);
@@ -98,13 +96,9 @@ void	print_all_data(t_data *data, t_philo *philos)
 
 bool	all_init(t_data **data, t_philo **philos, int argc, char **argv)
 {
-	struct timeval	time;
-
 	*data = data_init(argc, argv);
 	if (data == NULL)
 		return (print_failed_error(), false);
-	get_current_time(&time);
-	(*data)->start_time = &time;
 	(*data)->forks = mutex_init(*data);
 	if ((*data)->forks == NULL)
 		return (print_failed_error(), false);
