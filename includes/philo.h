@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 12:22:39 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/21 11:45:59 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/21 13:26:26 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				nbr_of_eat;
+	pthread_mutex_t	*forks;
 	struct timeval	*start_time;
 
 }	t_data;
@@ -69,6 +70,7 @@ int		ft_atoi(char *str);
 // init.c
 t_data	*data_init(int argc, char **argv);
 t_philo	*philo_init(t_data *data);
+bool	all_init(t_data **data, t_philo **philos, int argc, char **argv);
 // main.c
 // time.c
 size_t	get_micro_sec(struct timeval *time);
