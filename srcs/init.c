@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:19:19 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/19 17:21:16 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/21 11:45:54 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,28 @@ t_data	*data_init(int argc, char **argv)
 	return (data);
 }
 
-// t_philo	*philo_init(t_data *data)
-// {
+t_philo	*philo_init(t_data *data)
+{
+	int	i;
+	t_philo	*philos;
 
-// }
+	i = 0;
+	philos = (t_philo *)malloc(sizeof(t_philo) * data->nbr_of_philo);
+	if (philos == NULL)
+		return (NULL);
+	while (i < data->nbr_of_philo)
+	{
+		philos[i].id = i + 1;
+		philos[i].nbr_of_eat = 0;
+		philos[i].status = THINKING;
+		philos[i].data = data;
+		// thread
+		if (pthread_mutex_init(&philos[i].lock, NULL) != 0)
+		{
+			free(philos);
+			return (NULL);
+		}
+		i++;
+	}
+	return (philos);
+}
