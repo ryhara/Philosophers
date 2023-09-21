@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:19:19 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/21 11:45:54 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/21 11:49:24 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_data	*data_init(int argc, char **argv)
 
 t_philo	*philo_init(t_data *data)
 {
-	int	i;
+	int		i;
 	t_philo	*philos;
 
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 11:38:36 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/21 11:40:03 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/21 11:49:07 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ size_t	ft_strlen(char *str)
 		len++;
 	return (len);
 }
+
 void	ft_puterr(char *str)
 {
 	write(2, str, ft_strlen(str));
 }
+
 void	print_args_error(void)
 {
 	ft_puterr("\033[31mError: Invalid arguments\n\033[0m");
