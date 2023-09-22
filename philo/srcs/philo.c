@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 11:10:56 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/21 22:49:00 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/22 21:17:06 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ void	destroy_all(t_data *data, t_philo *philos)
 		pthread_mutex_destroy(&data->forks[i]);
 		i++;
 	}
+	pthread_mutex_destroy(&data->status);
+	pthread_mutex_destroy(&data->print);
+	pthread_mutex_destroy(&data->eat);
 	free(data->forks);
 	free(data);
 	free(philos);

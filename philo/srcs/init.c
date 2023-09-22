@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:19:19 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/21 22:50:56 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/22 21:47:07 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,6 @@ bool	all_init(t_data **data, t_philo **philos, int argc, char **argv)
 	*philos = philo_init(*data);
 	if (*philos == NULL)
 		return (print_failed_error(), false);
-	// print_all_data(*data, *philos);
+	print_all_data(*data, *philos);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:34:07 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/21 22:51:21 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/22 21:52:26 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	take_fork(t_philo *philo)
 		return ;
 	}
 	print_state(philo, STR_FORK);
+	if (philo->data->nbr_of_philo == 1)
+		return (usleep_philo(philo->data->time_to_die * (long)1500));
 	pthread_mutex_lock(&philo->data->forks[philo->right_fork]);
 	if (is_phio_dead(philo))
 	{
@@ -37,10 +39,8 @@ void	take_fork(t_philo *philo)
 void	eating(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->eat);
-	philo->last_eat = get_milli_sec();
-	pthread_mutex_unlock(&philo->data->eat);
-	pthread_mutex_lock(&philo->data->eat);
 	philo->nbr_of_eat++;
+	philo->last_eat = get_milli_sec();
 	pthread_mutex_unlock(&philo->data->eat);
 	print_state(philo, STR_EAT);
 	usleep_philo(philo->data->time_to_eat * (long)1000);
