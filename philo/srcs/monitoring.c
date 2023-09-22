@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 22:45:22 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/22 22:22:40 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/22 23:47:32 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static bool	is_philos_dead(t_philo *philos)
 		pthread_mutex_lock(&philos->data->status);
 		pthread_mutex_lock(&philos->data->eat);
 		current_time = get_milli_sec();
-		if (current_time - philos[i].last_eat > philos->data->time_to_die)
+		if (current_time - philos[i].last_eat >= philos->data->time_to_die)
 		{
 			philos[i].status = DIED;
 			philos->data->is_dead = true;
@@ -70,7 +70,7 @@ static bool	check_philos_status(t_philo *philos)
 {
 	if (is_philos_dead(philos))
 		return (false);
-	if (is_philos_full(philos))
+	if (philos->data->nbr_of_eat > 0 && is_philos_full(philos))
 		return (false);
 	return (true);
 }
@@ -94,8 +94,7 @@ void	monitoring(t_data *data, t_philo *philos)
 		{
 			pthread_mutex_unlock(&data->status);
 			if (!check_philos_status(philos))
-				break ;
+				return ;
 		}
-		usleep_philo(1000);
 	}
 }
