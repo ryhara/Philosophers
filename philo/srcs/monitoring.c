@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 22:45:22 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/22 21:16:28 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/22 22:22:40 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@ static bool	is_philos_dead(t_philo *philos)
 	long	current_time;
 	int		i;
 
-	current_time = get_milli_sec();
 	i = 0;
 	while (i < philos->data->nbr_of_philo && philos->data->is_dead == false)
 	{
-		unlock_status_eat(&philos[i]);
+		pthread_mutex_lock(&philos->data->status);
+		pthread_mutex_lock(&philos->data->eat);
+		current_time = get_milli_sec();
 		if (current_time - philos[i].last_eat > philos->data->time_to_die)
 		{
 			philos[i].status = DIED;

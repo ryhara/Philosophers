@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:34:07 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/22 21:52:26 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/22 22:05:23 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,6 @@ void	take_fork(t_philo *philo)
 		return ;
 	}
 	print_state(philo, STR_FORK);
-	pthread_mutex_lock(&philo->data->status);
-	philo->status = EATING;
-	pthread_mutex_unlock(&philo->data->status);
 }
 
 void	eating(t_philo *philo)
@@ -46,18 +43,12 @@ void	eating(t_philo *philo)
 	usleep_philo(philo->data->time_to_eat * (long)1000);
 	pthread_mutex_unlock(&philo->data->forks[philo->left_fork]);
 	pthread_mutex_unlock(&philo->data->forks[philo->right_fork]);
-	pthread_mutex_lock(&philo->data->status);
-	philo->status = SLEEPING;
-	pthread_mutex_unlock(&philo->data->status);
 }
 
 void	sleeping(t_philo *philo)
 {
 	print_state(philo, STR_SLEEP);
 	usleep_philo(philo->data->time_to_sleep * (long)1000);
-	pthread_mutex_lock(&philo->data->status);
-	philo->status = THINKING;
-	pthread_mutex_unlock(&philo->data->status);
 }
 
 void	thinking(t_philo *philo)
