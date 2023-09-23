@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:34:07 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/23 11:41:25 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/23 12:09:08 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,10 @@
 void	take_fork(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->forks[philo->left_fork]);
-	if (is_philo_dead(philo))
-	{
-		pthread_mutex_unlock(&philo->data->forks[philo->left_fork]);
-		return ;
-	}
 	print_state(philo, STR_FORK);
 	if (philo->data->nbr_of_philo == 1)
 		return (usleep_philo(philo->data->time_to_die * (long)1000));
 	pthread_mutex_lock(&philo->data->forks[philo->right_fork]);
-	if (is_philo_dead(philo))
-	{
-		pthread_mutex_unlock(&philo->data->forks[philo->left_fork]);
-		pthread_mutex_unlock(&philo->data->forks[philo->right_fork]);
-		return ;
-	}
 	print_state(philo, STR_FORK);
 }
 
@@ -67,16 +56,12 @@ void	*routine(void *arg)
 		usleep_philo((long)200);
 	while (1)
 	{
+		if (is_philo_dead(philo))
+			break ;
 		thinking(philo);
 		take_fork(philo);
-		if (is_philo_dead(philo))
-			break ;
 		eating(philo);
-		if (is_philo_dead(philo))
-			break ;
 		sleeping(philo);
-		if (is_philo_dead(philo))
-			break ;
 	}
 	return (NULL);
 }

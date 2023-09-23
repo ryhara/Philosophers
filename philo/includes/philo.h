@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 12:22:39 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/23 11:26:01 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/23 12:11:43 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,9 @@ void	print_args_error(void);
 void	print_failed_error(void);
 void	print_state(t_philo *philo, char *state);
 // time.c
+int		ft_strcmp(const char *s1, const char *s2);
 long	get_micro_sec(void);
 long	get_milli_sec(void);
-long	get_sec(void);
 long	mili_to_micro(long ms);
 void	usleep_philo(long ms);
 
