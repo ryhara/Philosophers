@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 12:24:16 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/22 23:37:21 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/23 11:55:23 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ bool	main_exe(t_data *data, t_philo *philos)
 		philos[i].last_eat = data->start_time;
 		if (pthread_create(&philos[i].thread, NULL,
 				(void *)routine, (void *)&philos[i]) != 0)
-			return (false);
+			return (print_failed_error(), false);
 		i++;
 	}
+	monitoring(philos);
 	i = 0;
-	monitoring(data, philos);
 	while (i < data->nbr_of_philo)
 	{
 		if (pthread_join(philos[i].thread, NULL) != 0)
-			return (false);
+			return (print_failed_error(), false);
 		i++;
 	}
 	destroy_all(data, philos);

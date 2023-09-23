@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 22:45:22 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/22 23:47:32 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/23 11:46:00 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static	void	unlock_status_eat(t_philo *philo)
 {
-	pthread_mutex_unlock(&philo->data->eat);
 	pthread_mutex_unlock(&philo->data->status);
+	pthread_mutex_unlock(&philo->data->eat);
 }
 
 static bool	is_philos_dead(t_philo *philos)
@@ -26,9 +26,9 @@ static bool	is_philos_dead(t_philo *philos)
 	i = 0;
 	while (i < philos->data->nbr_of_philo && philos->data->is_dead == false)
 	{
-		pthread_mutex_lock(&philos->data->status);
-		pthread_mutex_lock(&philos->data->eat);
 		current_time = get_milli_sec();
+		pthread_mutex_lock(&philos->data->eat);
+		pthread_mutex_lock(&philos->data->status);
 		if (current_time - philos[i].last_eat >= philos->data->time_to_die)
 		{
 			philos[i].status = DIED;
@@ -75,26 +75,22 @@ static bool	check_philos_status(t_philo *philos)
 	return (true);
 }
 
-void	monitoring(t_data *data, t_philo *philos)
+void	*monitoring(t_philo *philos)
 {
 	while (1)
 	{
-		pthread_mutex_lock(&data->status);
-		if (data->nbr_of_eat < 0 && data->is_dead == true)
+		pthread_mutex_lock(&philos->data->status);
+		if (philos->data->is_dead == true)
 		{
-			pthread_mutex_unlock(&data->status);
-			break ;
-		}
-		if (data->is_dead == true)
-		{
-			pthread_mutex_unlock(&data->status);
+			pthread_mutex_unlock(&philos->data->status);
 			break ;
 		}
 		else
 		{
-			pthread_mutex_unlock(&data->status);
+			pthread_mutex_unlock(&philos->data->status);
 			if (!check_philos_status(philos))
-				return ;
+				break ;
 		}
 	}
+	return (NULL);
 }

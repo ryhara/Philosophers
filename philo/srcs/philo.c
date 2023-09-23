@@ -6,22 +6,20 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 11:10:56 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/22 21:17:06 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/23 11:34:20 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-bool	is_phio_dead(t_philo *philo)
+bool	is_philo_dead(t_philo *philo)
 {
+	bool	is_dead;
+
 	pthread_mutex_lock(&philo->data->status);
-	if (philo->status == DIED || philo->data->is_dead == true)
-	{
-		pthread_mutex_unlock(&philo->data->status);
-		return (true);
-	}
+	is_dead = philo->data->is_dead;
 	pthread_mutex_unlock(&philo->data->status);
-	return (false);
+	return (is_dead);
 }
 
 void	destroy_all(t_data *data, t_philo *philos)

@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 12:22:39 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/21 22:50:47 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/23 11:26:01 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_data
 	int				nbr_of_eat;
 	long			start_time;
 	bool			is_dead;
+	pthread_t		monitor;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
 	pthread_mutex_t	eat;
@@ -77,15 +78,15 @@ t_data	*data_init(int argc, char **argv);
 t_philo	*philo_init(t_data *data);
 bool	all_init(t_data **data, t_philo **philos, int argc, char **argv);
 // monitoring.c
-void	monitoring(t_data *data, t_philo *philos);
+void	*monitoring(t_philo *philos);
 // philo_action.c
 void	take_fork(t_philo *philo);
 void	eating(t_philo *philo);
 void	sleeping(t_philo *philo);
 void	thinking(t_philo *philo);
-void	*routine(t_philo *philo);
+void	*routine(void *arg);
 // philo.c
-bool	is_phio_dead(t_philo *philo);
+bool	is_philo_dead(t_philo *philo);
 void	destroy_all(t_data *data, t_philo *philos);
 // print,c
 size_t	ft_strlen(char *str);
