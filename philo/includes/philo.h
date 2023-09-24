@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 12:22:39 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/24 14:21:39 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/24 22:27:33 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,7 @@ typedef struct s_philo
 	bool			is_full;
 	t_status		status;
 	t_data			*data;
-	long			next_eat;
 	long			last_eat;
-	long			start_eat;
 }	t_philo;
 
 // check_args.c
@@ -99,7 +97,7 @@ void	print_state(t_philo *philo, char *state);
 long	get_micro_sec(void);
 long	get_milli_sec(void);
 long	milli_to_micro(long ms);
-void	usleep_philo(long ms);
-void	until_start(long us);
+void	usleep_philo(long us);
+void	until_start(long ms);
 
 #endif

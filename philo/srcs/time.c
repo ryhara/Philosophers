@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 10:45:49 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/24 14:21:32 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/24 22:27:23 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,14 @@ void	usleep_philo(long us)
 	}
 }
 
-void	until_start(long us)
+void	until_start(long ms)
 {
 	long	time;
 
 	time = get_milli_sec();
 	while (1)
 	{
-		if (time >= us)
+		if (time >= ms)
 			break ;
 		time = get_milli_sec();
 	}

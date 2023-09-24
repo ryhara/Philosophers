@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:34:07 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/24 14:20:08 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/24 22:38:16 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	until_start(philo->data->start_time);
 	if (philo->id % 2 == 1)
-		usleep_philo((long)200);
+		usleep_philo(philo->data->nbr_of_philo * (long)100);
 	while (1)
 	{
+		thinking(philo);
 		if (is_philo_dead(philo))
 			break ;
-		thinking(philo);
 		take_fork(philo);
 		eating(philo);
 		sleeping(philo);
