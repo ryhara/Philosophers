@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 12:24:16 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/23 11:55:23 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/24 14:18:28 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	main_exe(t_data *data, t_philo *philos)
 	int	i;
 
 	i = 0;
-	data->start_time = get_milli_sec();
+	data->start_time = get_milli_sec() + 2000;
 	while (i < data->nbr_of_philo)
 	{
 		philos[i].last_eat = data->start_time;

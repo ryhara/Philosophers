@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 12:22:39 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/23 12:11:43 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/24 14:21:39 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_philo
 bool	check_args(int argc, char **argv);
 bool	check_data(int argc, char **argv);
 int		ft_atoi(char *str);
+int		ft_strcmp(const char *s1, const char *s2);
 // init.c
 t_data	*data_init(int argc, char **argv);
 t_philo	*philo_init(t_data *data);
@@ -95,10 +96,10 @@ void	print_args_error(void);
 void	print_failed_error(void);
 void	print_state(t_philo *philo, char *state);
 // time.c
-int		ft_strcmp(const char *s1, const char *s2);
 long	get_micro_sec(void);
 long	get_milli_sec(void);
-long	mili_to_micro(long ms);
+long	milli_to_micro(long ms);
 void	usleep_philo(long ms);
+void	until_start(long us);
 
 #endif
