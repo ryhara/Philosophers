@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:34:07 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/24 22:38:16 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/24 22:58:32 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	take_fork(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->data->forks[philo->left_fork]);
+	pthread_mutex_lock(&philo->data->forks[philo->right_fork]);
 	print_state(philo, STR_FORK);
 	if (philo->data->nbr_of_philo == 1)
 		return (usleep_philo(philo->data->time_to_die * (long)1000));
-	pthread_mutex_lock(&philo->data->forks[philo->right_fork]);
+	pthread_mutex_lock(&philo->data->forks[philo->left_fork]);
 	print_state(philo, STR_FORK);
 }
 
@@ -32,8 +32,8 @@ void	eating(t_philo *philo)
 	pthread_mutex_unlock(&philo->data->eat);
 	print_state(philo, STR_EAT);
 	usleep_philo(philo->data->time_to_eat * (long)1000);
-	pthread_mutex_unlock(&philo->data->forks[philo->left_fork]);
 	pthread_mutex_unlock(&philo->data->forks[philo->right_fork]);
+	pthread_mutex_unlock(&philo->data->forks[philo->left_fork]);
 }
 
 void	sleeping(t_philo *philo)
@@ -54,7 +54,7 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	until_start(philo->data->start_time);
 	if (philo->id % 2 == 1)
-		usleep_philo(philo->data->nbr_of_philo * (long)100);
+		usleep_philo(philo->data->nbr_of_philo * (long)200);
 	while (1)
 	{
 		thinking(philo);

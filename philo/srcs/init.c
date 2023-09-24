@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:19:19 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/22 22:25:21 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/24 22:48:37 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ pthread_mutex_t	*mutex_init(t_data *data)
 
 	i = 0;
 	forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
-			* (data->nbr_of_philo + 1));
+			* (data->nbr_of_philo));
 	if (forks == NULL)
 		return (NULL);
-	while (i < data->nbr_of_philo + 1)
+	while (i < data->nbr_of_philo)
 	{
 		if (pthread_mutex_init(&forks[i], NULL) != 0)
 		{
@@ -71,10 +71,10 @@ t_philo	*philo_init(t_data *data)
 		philos[i].nbr_of_eat = 0;
 		philos[i].status = THINKING;
 		philos[i].data = data;
+		philos[i].right_fork = i;
 		philos[i].left_fork = i + 1;
-		philos[i].right_fork = (i + 2);
 		if (i == data->nbr_of_philo - 1)
-			philos[i].right_fork = 1;
+			philos[i].right_fork = 0;
 		philos[i].last_eat = 0;
 		philos[i].nbr_of_eat = 0;
 		philos[i].is_full = false;

@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 11:38:36 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/23 12:12:18 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/24 22:52:19 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	print_state(t_philo *philo, char *state)
 		pthread_mutex_unlock(&philo->data->print);
 		return ;
 	}
-	printf("%ld %d %s\n", time, philo->id, state);
 	pthread_mutex_unlock(&philo->data->status);
+	printf("%ld %d %s\n", time, philo->id, state);
 	pthread_mutex_unlock(&philo->data->print);
 }

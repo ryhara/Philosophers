@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 11:10:56 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/23 11:34:20 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/24 22:47:17 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	destroy_all(t_data *data, t_philo *philos)
 	int	i;
 
 	i = 0;
-	while (i < data->nbr_of_philo + 1)
+	while (i < data->nbr_of_philo)
 	{
 		pthread_mutex_destroy(&data->forks[i]);
 		i++;
