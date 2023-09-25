@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 12:24:16 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/25 23:20:43 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/26 00:03:32 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	main_exe(t_data *data, t_philo *philos)
 	data->start_time = get_milli_sec() + (long)1000;
 	while (i < data->nbr_of_philo)
 	{
-		philos[i].last_eat = data->start_time;
+		philos[i].next_eat = data->start_time + data->time_to_die;
 		if (pthread_create(&philos[i].thread, NULL,
 				(void *)routine, (void *)&philos[i]) != 0)
 			return (print_failed_error(), false);

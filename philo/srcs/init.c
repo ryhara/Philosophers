@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:19:19 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/25 23:21:44 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/25 23:59:56 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ t_data	*data_init(int argc, char **argv)
 	else
 		data->nbr_of_eat = -1;
 	if (pthread_mutex_init(&data->print, NULL) != 0)
-		return (NULL);
-	if (pthread_mutex_init(&data->eat, NULL) != 0)
 		return (NULL);
 	if (pthread_mutex_init(&data->dead, NULL) != 0)
 		return (NULL);
@@ -72,15 +70,17 @@ t_philo	*philo_init(t_data *data)
 	{
 		philos[i].id = i + 1;
 		philos[i].nbr_of_eat = 0;
-		philos[i].status = THINKING;
 		philos[i].data = data;
 		philos[i].right_fork = i;
 		philos[i].left_fork = i + 1;
 		if (i == data->nbr_of_philo - 1)
 			philos[i].right_fork = 0;
 		philos[i].last_eat = 0;
+		philos[i].next_eat = 0;
 		philos[i].nbr_of_eat = 0;
 		philos[i].is_full = false;
+		if (pthread_mutex_init(&philos[i].eat, NULL) != 0)
+			return (free(philos), NULL);
 		i++;
 	}
 	return (philos);

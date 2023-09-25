@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 12:22:39 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/25 23:28:59 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/25 23:59:14 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ typedef struct s_data
 	bool			is_dead;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
-	pthread_mutex_t	eat;
 	pthread_mutex_t	dead;
 }	t_data;
 
@@ -60,9 +59,10 @@ typedef struct s_philo
 	int				left_fork;
 	int				right_fork;
 	bool			is_full;
-	t_status		status;
 	t_data			*data;
 	long			last_eat;
+	long			next_eat;
+	pthread_mutex_t	eat;
 }	t_philo;
 
 // check_args.c
