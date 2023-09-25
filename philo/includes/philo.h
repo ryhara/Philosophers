@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 12:22:39 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/25 20:06:10 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/25 23:28:59 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,16 @@ typedef enum e_status
 typedef struct s_data
 {
 	int				nbr_of_philo;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
 	int				nbr_of_eat;
 	long			start_time;
 	bool			is_dead;
-	pthread_t		monitor;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
 	pthread_mutex_t	eat;
-	pthread_mutex_t	status;
-
+	pthread_mutex_t	dead;
 }	t_data;
 
 typedef struct s_philo
@@ -65,7 +63,6 @@ typedef struct s_philo
 	t_status		status;
 	t_data			*data;
 	long			last_eat;
-	long			start_time;
 }	t_philo;
 
 // check_args.c
@@ -93,7 +90,7 @@ size_t	ft_strlen(char *str);
 void	ft_puterr(char *str);
 void	print_args_error(void);
 void	print_failed_error(void);
-void	print_state(t_philo *philo, char *state, long time);
+void	print_state(t_philo *philo, char *state);
 // time.c
 long	get_micro_sec(void);
 long	get_milli_sec(void);

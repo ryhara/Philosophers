@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:19:19 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/25 20:08:49 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/25 23:21:44 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ t_data	*data_init(int argc, char **argv)
 		data->nbr_of_eat = ft_atoi(argv[5]);
 	else
 		data->nbr_of_eat = -1;
-	if (pthread_mutex_init(&data->status, NULL) != 0)
-		return (NULL);
 	if (pthread_mutex_init(&data->print, NULL) != 0)
 		return (NULL);
 	if (pthread_mutex_init(&data->eat, NULL) != 0)
+		return (NULL);
+	if (pthread_mutex_init(&data->dead, NULL) != 0)
 		return (NULL);
 	return (data);
 }
@@ -99,9 +99,9 @@ void	print_all_data(t_data *data, t_philo *philos)
 		i++;
 	}
 	printf("nbr_of_philo: %d\n", data->nbr_of_philo);
-	printf("time_to_die: %d\n", data->time_to_die);
-	printf("time_to_eat: %d\n", data->time_to_eat);
-	printf("time_to_sleep: %d\n", data->time_to_sleep);
+	printf("time_to_die: %ld\n", data->time_to_die);
+	printf("time_to_eat: %ld\n", data->time_to_eat);
+	printf("time_to_sleep: %ld\n", data->time_to_sleep);
 	printf("nbr_of_eat: %d\n", data->nbr_of_eat);
 }
 
