@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 11:10:56 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/24 22:47:17 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/25 19:54:16 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ bool	is_philo_dead(t_philo *philo)
 {
 	bool	is_dead;
 
-	pthread_mutex_lock(&philo->data->status);
+	pthread_mutex_lock(&philo->data->eat);
 	is_dead = philo->data->is_dead;
-	pthread_mutex_unlock(&philo->data->status);
+	pthread_mutex_unlock(&philo->data->eat);
 	return (is_dead);
 }
 

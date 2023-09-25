@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:34:07 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/25 15:47:23 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/25 20:08:28 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	take_fork(t_philo *philo)
 
 void	eating(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->data->status);
+	pthread_mutex_lock(&philo->data->eat);
 	philo->nbr_of_eat++;
 	philo->last_eat = get_milli_sec();
-	pthread_mutex_unlock(&philo->data->status);
+	pthread_mutex_unlock(&philo->data->eat);
 	print_state(philo, STR_EAT, get_milli_sec() - philo->data->start_time);
 	usleep_philo(philo->data->time_to_eat * (long)1000);
 	pthread_mutex_unlock(&philo->data->forks[philo->right_fork]);
@@ -52,7 +52,7 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	until_start(philo->data->start_time);
 	if (philo->id % 2 == 1)
-		usleep_philo(philo->data->nbr_of_philo * (long)200);
+		usleep_philo(200);
 	while (1)
 	{
 		thinking(philo);

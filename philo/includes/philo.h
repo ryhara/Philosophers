@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 12:22:39 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/25 15:36:54 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/25 20:06:10 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_philo
 	t_status		status;
 	t_data			*data;
 	long			last_eat;
+	long			start_time;
 }	t_philo;
 
 // check_args.c
