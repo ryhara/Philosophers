@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:19:19 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/24 22:48:37 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/25 15:29:53 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,12 @@ t_data	*data_init(int argc, char **argv)
 		data->nbr_of_eat = ft_atoi(argv[5]);
 	else
 		data->nbr_of_eat = -1;
-	pthread_mutex_init(&data->status, NULL);
-	pthread_mutex_init(&data->print, NULL);
-	pthread_mutex_init(&data->eat, NULL);
+	if (pthread_mutex_init(&data->status, NULL) != 0)
+		return (NULL);
+	if (pthread_mutex_init(&data->print, NULL) != 0)
+		return (NULL);
+	if (pthread_mutex_init(&data->eat, NULL) != 0)
+		return (NULL);
 	return (data);
 }
 

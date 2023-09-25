@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 22:45:22 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/24 21:49:31 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/25 15:50:35 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,25 @@
 
 static bool	is_philos_dead(t_philo *philos)
 {
-	long	current_time;
 	int		i;
 
 	i = 0;
 	while (i < philos->data->nbr_of_philo && philos->data->is_dead == false)
 	{
-		current_time = get_milli_sec();
-		pthread_mutex_lock(&philos->data->eat);
-		if (current_time - philos[i].last_eat >= philos->data->time_to_die)
+		pthread_mutex_lock(&philos->data->status);
+		if (get_milli_sec() - philos[i].last_eat >= philos->data->time_to_die)
 		{
-			pthread_mutex_unlock(&philos->data->eat);
 			philos[i].status = DIED;
-			pthread_mutex_lock(&philos->data->status);
 			philos->data->is_dead = true;
 			pthread_mutex_unlock(&philos->data->status);
-			print_state(&philos[i], STR_DIED);
+			print_state(&philos[i], STR_DIED,
+				get_milli_sec() - philos->data->start_time);
 			return (true);
 		}
 		if (philos->data->nbr_of_eat > 0 && philos[i].is_full == false
 			&& philos[i].nbr_of_eat >= philos->data->nbr_of_eat)
 			philos[i].is_full = true;
-		pthread_mutex_unlock(&philos->data->eat);
+		pthread_mutex_unlock(&philos->data->status);
 		i++;
 	}
 	return (false);

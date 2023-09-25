@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 12:22:39 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/24 22:27:33 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/25 15:36:54 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ size_t	ft_strlen(char *str);
 void	ft_puterr(char *str);
 void	print_args_error(void);
 void	print_failed_error(void);
-void	print_state(t_philo *philo, char *state);
+void	print_state(t_philo *philo, char *state, long time);
 // time.c
 long	get_micro_sec(void);
 long	get_milli_sec(void);
