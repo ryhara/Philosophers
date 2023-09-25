@@ -83,7 +83,7 @@ process_with_5_args() {
     eating_count=$(cat result | grep 'is eating' | wc -l)
     expected_count=$((num1 * num5))
 
-    if [ $eating_count -ge $num5 ]; then
+    if [ $eating_count -ge $expected_count ]; then
         echo -e "\033[0;32mEating count is greater than or equal to expected: $eating_count (Expected: $expected_count)\033[0m"
     else
         echo -e "\033[0;31mEating count is less than expected: $eating_count (Expected: $expected_count)\033[0m"

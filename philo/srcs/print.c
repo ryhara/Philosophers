@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 11:38:36 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/25 20:07:24 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/25 23:21:03 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,20 @@ void	print_failed_error(void)
 	ft_puterr(" or \033[31mpthread failed\n\033[0m");
 }
 
-void	print_state(t_philo *philo, char *state, long time)
+void	print_state(t_philo *philo, char *state)
 {
+	long	time;
+
 	pthread_mutex_lock(&philo->data->print);
-	pthread_mutex_lock(&philo->data->eat);
+	pthread_mutex_lock(&philo->data->dead);
 	time = get_milli_sec() - philo->data->start_time;
 	if (philo->data->is_dead == true && ft_strcmp(state, STR_DIED))
 	{
-		pthread_mutex_unlock(&philo->data->eat);
+		pthread_mutex_unlock(&philo->data->dead);
 		pthread_mutex_unlock(&philo->data->print);
 		return ;
 	}
-	pthread_mutex_unlock(&philo->data->eat);
+	pthread_mutex_unlock(&philo->data->dead);
 	printf("%ld %d %s\n", time, philo->id, state);
 	pthread_mutex_unlock(&philo->data->print);
 }
