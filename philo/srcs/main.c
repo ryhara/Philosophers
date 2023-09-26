@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 12:24:16 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/26 00:03:32 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/26 14:56:40 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ bool	main_exe(t_data *data, t_philo *philos)
 	while (i < data->nbr_of_philo)
 	{
 		if (pthread_join(philos[i].thread, NULL) != 0)
+		{
+			destroy_all(data, philos);
 			return (print_failed_error(), false);
+		}
 		i++;
 	}
 	destroy_all(data, philos);
