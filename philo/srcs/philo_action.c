@@ -6,7 +6,7 @@
 /*   By: ryhara <ryhara@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:34:07 by ryhara            #+#    #+#             */
-/*   Updated: 2023/09/26 01:23:07 by ryhara           ###   ########.fr       */
+/*   Updated: 2023/09/26 14:34:32 by ryhara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	take_fork(t_philo *philo)
 void	eating(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->eat);
-	// philo->last_eat = get_milli_sec();
 	philo->next_eat = get_milli_sec() + philo->data->time_to_die;
 	pthread_mutex_unlock(&philo->eat);
 	print_state(philo, STR_EAT);
